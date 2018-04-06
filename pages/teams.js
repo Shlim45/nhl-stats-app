@@ -6,7 +6,7 @@ import TeamList from '../containers/TeamList';
 const Teams = props => (
     <Layout>
         <div>
-            <h1>NHL Teams</h1>
+            <h1 className="mb-5">NHL Teams</h1>
             <TeamList teams={props.teams} />
         </div>
     </Layout>
