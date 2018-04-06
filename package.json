@@ -1,0 +1,18 @@
+{
+  "name": "nhl-stats-app",
+  "version": "0.1.0",
+  "description": "A web application for looking up NHL statistics.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "Shlim45",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^5.1.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
+  }
+}
