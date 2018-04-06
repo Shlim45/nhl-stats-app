@@ -1,3 +1,5 @@
+import Fetch from 'isomorphic-unfetch';
+
 import Layout from '../components/Layout';
 import TeamList from '../containers/TeamList';
 
@@ -11,12 +13,19 @@ const Teams = props => (
 );
 
 Teams.getInitialProps = async function() {
-    const res = await fetch('https://statsapi.web.nhl.com/api/v1/teams/');
-    const data = await res.json();
+    try {
+        const res = await Fetch('https://statsapi.web.nhl.com/api/v1/teams/');
+        const data = await res.json();
 
-    return {
-        teams: data,
-    };
+        return {
+            teams: data,
+        };
+    } catch (error) {
+        console.error(error);
+        return {
+            error,
+        };
+    }
 };
 
 export default Teams;
