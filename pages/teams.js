@@ -6,7 +6,7 @@ import TeamStats from '../containers/TeamStats';
 const Teams = props => (
     <Layout>
         <div>
-            <h1 className="mb-5">NHL Teams</h1>
+            <h2 className="mb-5 mt-5">NHL team statistics</h2>
             <TeamStats {...props} teamStats={props.teamStats} />
         </div>
     </Layout>
