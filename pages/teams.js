@@ -1,13 +1,13 @@
 import 'isomorphic-unfetch';
 
 import Layout from '../components/Layout';
-import TeamList from '../containers/TeamList';
+import TeamStats from '../containers/TeamStats';
 
 const Teams = props => (
     <Layout>
         <div>
             <h1 className="mb-5">NHL Teams</h1>
-            <TeamList teams={props.teams} teamStats={props.teamStats} />
+            <TeamStats {...props} teamStats={props.teamStats} />
         </div>
     </Layout>
 );
