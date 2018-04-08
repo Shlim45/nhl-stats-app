@@ -1,5 +1,4 @@
 export function sortPlayers(players, sortBy, ascend) {
-    console.log({players});
     if (ascend) {
         switch (sortBy) {
             case 'lastName':
