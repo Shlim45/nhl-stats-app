@@ -28,7 +28,7 @@ class PlayerStats extends React.Component {
                 <div className="error">
                     <h1>There was a problem with the request.</h1>
                     <hr />
-                    if (error.message) {<p>{error.message}</p>}
+                    {error.message && <p>{error.message}</p>}
                 </div>
             );
         }
