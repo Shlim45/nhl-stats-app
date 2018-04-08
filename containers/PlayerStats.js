@@ -4,9 +4,6 @@ class PlayerStats extends React.Component {
     constructor(props) {
         super(props);
 
-        // TODO: remove players from props for this,
-        // and set state.players = props.playerStats
-
         const { playerStats, ...extraProps } = props;
         const players = sortPlayers(playerStats, 'points', false);
 
@@ -16,7 +13,11 @@ class PlayerStats extends React.Component {
     }
 
     handleSort = e => {
-        console.log('sort by', e.target.id);
+        //TODO ascending/descending
+        const sortBy = e.target.id;
+        const { players } = this.state;
+        const newSorting = sortPlayers(players, sortBy, false);
+        this.setState({ players });
     };
 
     render() {
@@ -35,7 +36,7 @@ class PlayerStats extends React.Component {
         // TODO: separation of skaters and goalies
 
         const { players } = this.state;
-        
+
         return (
             <ul className="player-list list-group mb-5">
                 <li
