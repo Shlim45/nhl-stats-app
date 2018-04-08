@@ -1,6 +1,18 @@
 const TeamStats = props => {
     const teams = props.teamStats.map(ts => ts.teams[0]);
 
+    const { error } = props;
+
+    if (error) {
+        return (
+            <div className="error">
+                <h1>There was a problem with the request.</h1>
+                <hr />
+                if (error.message) {<p>{error.message}</p>}
+            </div>
+        );
+    }
+
     // sort by total points, desc
     teams.sort((a, b) => b.teamStats[0].splits[0].stat.pts - a.teamStats[0].splits[0].stat.pts);
 

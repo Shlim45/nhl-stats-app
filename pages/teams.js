@@ -3,6 +3,8 @@ import 'isomorphic-unfetch';
 import Layout from '../components/Layout';
 import TeamStats from '../containers/TeamStats';
 
+const CURRENT_SEASON = '20172018';
+
 const Teams = props => (
     <Layout>
         <div>
@@ -14,7 +16,7 @@ const Teams = props => (
 
 Teams.getInitialProps = async function() {
     const URL = 'https://statsapi.web.nhl.com/api/v1/teams/';
-    const statsParams = '?expand=team.stats&season=20172018';
+    const statsParams = '?expand=team.stats&season=' + CURRENT_SEASON;
     try {
         const res = await fetch(URL);
         const data = await res.json();
