@@ -6,6 +6,7 @@ import PlayerStats from '../containers/PlayerStats';
 const CURRENT_SEASON = '20172018';
 
 const Players = props => {
+    console.log('Players:', {props});
     return (
         <Layout>
             <div>
@@ -32,6 +33,7 @@ Players.getInitialProps = async function() {
 
         const results = await Promise.all(promises);
 
+        // hard code 4 for penguins (for testing)
         const players = results[4].teams[0].franchise.roster.roster;
 
         const playerStats = players.map(p => ({

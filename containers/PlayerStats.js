@@ -157,8 +157,6 @@ class PlayerStats extends React.Component {
             );
         }
 
-        // TODO: separation of skaters and goalies
-
         let { players } = this.state;
 
         if (this.state.skaters) {
