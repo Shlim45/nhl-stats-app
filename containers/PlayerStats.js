@@ -1,4 +1,4 @@
-import { sortPlayers } from '../handlers/sort';
+import { sortPlayers } from '../handlers/lists';
 
 class PlayerStats extends React.Component {
     constructor(props) {
@@ -37,6 +37,113 @@ class PlayerStats extends React.Component {
         }
     };
 
+    playerStatsListHeading = (skaters = true) => {
+        if (skaters) {
+            return (
+                <li
+                    key={'player-list-heading'}
+                    className="list-group-item active d-flex justify-content-between align-items-center"
+                >
+                    <span className="badge badge-secondary badge-pill playerstats-rank">Rank</span>
+                    <button
+                        className="playerstats-fullname"
+                        id="lastName"
+                        onClick={this.handleSort}
+                    >
+                        Player Name
+                    </button>
+                    <button className="playerstats-season" id="season" onClick={this.handleSort}>
+                        Season
+                    </button>
+                    <button className="playerstats-stat" id="games" onClick={this.handleSort}>
+                        GP
+                    </button>
+                    <button className="playerstats-stat" id="goals" onClick={this.handleSort}>
+                        G
+                    </button>
+                    <button className="playerstats-stat" id="assists" onClick={this.handleSort}>
+                        A
+                    </button>
+                    <button className="playerstats-stat" id="points" onClick={this.handleSort}>
+                        Pts
+                    </button>
+                    <button className="playerstats-stat" id="plusMinus" onClick={this.handleSort}>
+                        +/-
+                    </button>
+                </li>
+            );
+        } else {
+            return (
+                <li
+                    key={'player-list-heading'}
+                    className="list-group-item active d-flex justify-content-between align-items-center"
+                >
+                    <span className="badge badge-secondary badge-pill playerstats-rank">Rank</span>
+                    <button
+                        className="playerstats-fullname"
+                        id="lastName"
+                        onClick={this.handleSort}
+                    >
+                        Player Name
+                    </button>
+                    <button className="playerstats-season" id="season" onClick={this.handleSort}>
+                        Season
+                    </button>
+                    <button className="playerstats-stat" id="games" onClick={this.handleSort}>
+                        GP
+                    </button>
+                    <button
+                        className="playerstats-stat"
+                        id="gamesStarted"
+                        onClick={this.handleSort}
+                    >
+                        GS
+                    </button>
+                    <button className="playerstats-stat" id="wins" onClick={this.handleSort}>
+                        W
+                    </button>
+                    <button className="playerstats-stat" id="losses" onClick={this.handleSort}>
+                        L
+                    </button>
+                    <button className="playerstats-stat" id="ot" onClick={this.handleSort}>
+                        OTL
+                    </button>
+                    <button
+                        className="playerstats-stat"
+                        id="shotsAgainst"
+                        onClick={this.handleSort}
+                    >
+                        SA
+                    </button>
+                    <button className="playerstats-stat" id="saves" onClick={this.handleSort}>
+                        Svs
+                    </button>
+                    <button
+                        className="playerstats-stat"
+                        id="goalsAgainst"
+                        onClick={this.handleSort}
+                    >
+                        GA
+                    </button>
+                    <button
+                        className="playerstats-stat"
+                        id="savePercentage"
+                        onClick={this.handleSort}
+                    >
+                        Sv%
+                    </button>
+                    <button
+                        className="playerstats-stat"
+                        id="goalAgainstAverage"
+                        onClick={this.handleSort}
+                    >
+                        GAA
+                    </button>
+                </li>
+            );
+        }
+    };
+
     render() {
         const { error } = this.props;
 
@@ -66,54 +173,157 @@ class PlayerStats extends React.Component {
                     View Goalies
                 </button>
                 <ul className="player-list list-group mb-5">
-                    <li
-                        key={'player-list-heading'}
-                        className="list-group-item active d-flex justify-content-between align-items-center"
-                    >
-                        <span className="badge badge-secondary badge-pill playerstats-rank">
-                            Rank
-                        </span>
-                        <button
-                            className="playerstats-fullname"
-                            id="lastName"
-                            onClick={this.handleSort}
+                    {this.state.skaters ? (
+                        <li
+                            key={'player-list-heading'}
+                            className="list-group-item active d-flex justify-content-between align-items-center"
                         >
-                            Player Name
-                        </button>
-                        <button
-                            className="playerstats-season"
-                            id="season"
-                            onClick={this.handleSort}
+                            <span className="badge badge-secondary badge-pill playerstats-rank">
+                                Rank
+                            </span>
+                            <button
+                                className="playerstats-fullname"
+                                id="lastName"
+                                onClick={this.handleSort}
+                            >
+                                Player Name
+                            </button>
+                            <button
+                                className="playerstats-season"
+                                id="season"
+                                onClick={this.handleSort}
+                            >
+                                Season
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="games"
+                                onClick={this.handleSort}
+                            >
+                                GP
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="goals"
+                                onClick={this.handleSort}
+                            >
+                                G
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="assists"
+                                onClick={this.handleSort}
+                            >
+                                A
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="points"
+                                onClick={this.handleSort}
+                            >
+                                Pts
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="plusMinus"
+                                onClick={this.handleSort}
+                            >
+                                +/-
+                            </button>
+                        </li>
+                    ) : (
+                        <li
+                            key={'player-list-heading'}
+                            className="list-group-item active d-flex justify-content-between align-items-center"
                         >
-                            Season
-                        </button>
-                        <button className="playerstats-stat" id="games" onClick={this.handleSort}>
-                            GP
-                        </button>
-                        <button className="playerstats-stat" id="goals" onClick={this.handleSort}>
-                            G
-                        </button>
-                        <button className="playerstats-stat" id="assists" onClick={this.handleSort}>
-                            A
-                        </button>
-                        <button
-                            className="playerstats-stat desc"
-                            id="points"
-                            onClick={this.handleSort}
-                        >
-                            Pts
-                        </button>
-                        <button
-                            className="playerstats-stat"
-                            id="plusMinus"
-                            onClick={this.handleSort}
-                        >
-                            +/-
-                        </button>
-                    </li>
+                            <span className="badge badge-secondary badge-pill playerstats-rank">
+                                Rank
+                            </span>
+                            <button
+                                className="playerstats-fullname"
+                                id="lastName"
+                                onClick={this.handleSort}
+                            >
+                                Player Name
+                            </button>
+                            <button
+                                className="playerstats-season"
+                                id="season"
+                                onClick={this.handleSort}
+                            >
+                                Season
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="games"
+                                onClick={this.handleSort}
+                            >
+                                GP
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="gamesStarted"
+                                onClick={this.handleSort}
+                            >
+                                GS
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="wins"
+                                onClick={this.handleSort}
+                            >
+                                W
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="losses"
+                                onClick={this.handleSort}
+                            >
+                                L
+                            </button>
+                            <button className="playerstats-stat" id="ot" onClick={this.handleSort}>
+                                OTL
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="shotsAgainst"
+                                onClick={this.handleSort}
+                            >
+                                SA
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="saves"
+                                onClick={this.handleSort}
+                            >
+                                Svs
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="goalsAgainst"
+                                onClick={this.handleSort}
+                            >
+                                GA
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="savePercentage"
+                                onClick={this.handleSort}
+                            >
+                                Sv%
+                            </button>
+                            <button
+                                className="playerstats-stat"
+                                id="goalAgainstAverage"
+                                onClick={this.handleSort}
+                            >
+                                GAA
+                            </button>
+                        </li>
+                    )}
                     {players.map((player, i) => {
                         const { stat } = player.stats[0];
-                        return (
+                        return this.state.skaters ? (
                             <li
                                 key={player.jerseyNumber}
                                 className="list-group-item d-flex justify-content-between align-items-center"
@@ -128,6 +338,27 @@ class PlayerStats extends React.Component {
                                 <span className="playerstats-stat">{stat.assists}</span>
                                 <span className="playerstats-stat">{stat.points}</span>
                                 <span className="playerstats-stat">{stat.plusMinus}</span>
+                            </li>
+                        ) : (
+                            <li
+                                key={player.jerseyNumber}
+                                className="list-group-item d-flex justify-content-between align-items-center"
+                            >
+                                <span className="badge badge-secondary badge-pill playerstats-rank">
+                                    {i + 1}
+                                </span>
+                                <span className="playerstats-fullname">{player.fullName}</span>
+                                <span className="playerstats-season">2017-18</span>
+                                <span className="playerstats-stat">{stat.games}</span>
+                                <span className="playerstats-stat">{stat.gamesStarted}</span>
+                                <span className="playerstats-stat">{stat.wins}</span>
+                                <span className="playerstats-stat">{stat.losses}</span>
+                                <span className="playerstats-stat">{stat.ot}</span>
+                                <span className="playerstats-stat">{stat.shotsAgainst}</span>
+                                <span className="playerstats-stat">{stat.saves}</span>
+                                <span className="playerstats-stat">{stat.goalsAgainst}</span>
+                                <span className="playerstats-stat">{stat.savePercentage}</span>
+                                <span className="playerstats-stat">{stat.goalAgainstAverage}</span>
                             </li>
                         );
                     })}
