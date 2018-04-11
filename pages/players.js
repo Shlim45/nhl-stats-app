@@ -4,9 +4,10 @@ import Layout from '../components/Layout';
 import PlayerStats from '../containers/PlayerStats';
 
 const CURRENT_SEASON = '20172018';
+let teamId;
 
 const Players = props => {
-    console.log('Players:', {props});
+    console.log(props.players);
     return (
         <Layout>
             <div>
@@ -17,24 +18,19 @@ const Players = props => {
     );
 };
 
-Players.getInitialProps = async function() {
+Players.getInitialProps = async function(props) {
+    teamId = props.query.teamId || 5; // Defaulting to Penguins for now, TODO change initial view
+
     const URL = 'https://statsapi.web.nhl.com/api/v1/teams/';
     const statsParams =
         '?hydrate=franchise(roster(season=' +
         CURRENT_SEASON +
         ',person(name,stats(splits=[yearByYear]))))';
     try {
-        const res = await fetch(URL);
+        const res = await fetch(URL + teamId + statsParams);
         const data = await res.json();
 
-        const promises = await data.teams.map(team =>
-            fetch(URL + team.id + statsParams).then(res => res.json())
-        );
-
-        const results = await Promise.all(promises);
-
-        // hard code 4 for penguins (for testing)
-        const players = results[4].teams[0].franchise.roster.roster;
+        const players = data.teams[0].franchise.roster.roster;
 
         const playerStats = players.map(p => ({
             jerseyNumber: p.jerseyNumber,

@@ -45,7 +45,7 @@ class Teams extends React.Component {
             };
         }
     }
-
+    // TODO This is not what I want to do with TeamList...
     render() {
         return (
             <Layout>

@@ -23,6 +23,11 @@ const Navbar = () => (
                             <a className="nav-link">Players</a>
                         </Link>
                     </li>
+                    <li className="nav-item">
+                        <Link href="/leaders">
+                            <a className="nav-link">Leaders</a>
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </div>

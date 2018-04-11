@@ -16,13 +16,11 @@ class PlayerStats extends React.Component {
     }
 
     handleSort = e => {
-        //TODO ascending/descending
         const sortBy = e.target.id;
         const { players, sortedBy, asc } = this.state;
 
         // if sorting by same stat, toggle ascending
         const newAsc = sortedBy === sortBy ? !asc : false;
-
         const newSorting = sortPlayers(players, sortBy, newAsc);
 
         this.setState({ players: newSorting, sortedBy: sortBy, asc: newAsc });
@@ -323,7 +321,7 @@ class PlayerStats extends React.Component {
                         const { stat } = player.stats[0];
                         return this.state.skaters ? (
                             <li
-                                key={player.jerseyNumber}
+                                key={player.fullName}
                                 className="list-group-item d-flex justify-content-between align-items-center"
                             >
                                 <span className="badge badge-secondary badge-pill playerstats-rank">
@@ -339,7 +337,7 @@ class PlayerStats extends React.Component {
                             </li>
                         ) : (
                             <li
-                                key={player.jerseyNumber}
+                                key={player.fullName}
                                 className="list-group-item d-flex justify-content-between align-items-center"
                             >
                                 <span className="badge badge-secondary badge-pill playerstats-rank">
