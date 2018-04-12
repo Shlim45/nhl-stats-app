@@ -1,4 +1,5 @@
 import { sortPlayers } from '../handlers/lists';
+import { createPlayerListHeaderItem } from '../handlers';
 
 // TODO fix bug with traded players not showing all stats (i.e. Riley Sheahan)
 class PlayerStats extends React.Component {
@@ -39,6 +40,71 @@ class PlayerStats extends React.Component {
     render() {
         const { error } = this.props;
 
+        const playerStatsToMap = [
+            {
+                id: 'games',
+                text: 'GP',
+            },
+            {
+                id: 'goals',
+                text: 'G',
+            },
+            {
+                id: 'assists',
+                text: 'A',
+            },
+            {
+                id: 'points',
+                text: 'P',
+            },
+            {
+                id: 'plusMinus',
+                text: '+/-',
+            },
+        ];
+        const goalieStatsToMap = [
+            {
+                id: 'games',
+                text: 'GP',
+            },
+            {
+                id: 'gamesStarted',
+                text: 'GS',
+            },
+            {
+                id: 'wins',
+                text: 'W',
+            },
+            {
+                id: 'losses',
+                text: 'L',
+            },
+            {
+                id: 'ot',
+                text: 'OTL',
+            },
+            {
+                id: 'shotsAgainst',
+                text: 'SA',
+            },
+            {
+                id: 'saves',
+                text: 'Svs',
+            },
+            {
+                id: 'goalsAgainst',
+                text: 'GA',
+            },
+            {
+                id: 'savePercentage',
+                text: 'Sv%',
+            },
+            {
+                id: 'goalAgainstAverage',
+                text: 'GAA',
+            },
+        ];
+
         if (error) {
             return (
                 <div className="error">
@@ -57,15 +123,6 @@ class PlayerStats extends React.Component {
             players = players.filter(p => p.primaryPosition.code === 'G');
         }
 
-        // TODO figure out how to style this button
-        function createButton(id, onClick = () => {}, text = '', className = 'playerstats-stat') {
-            return (
-                <button className={className} id={id} onClick={onClick}>
-                    {text}
-                </button>
-            );
-        }
-
         return (
             <div className="container">
                 <button className="btn btn-sm btn-secondary mb-5" onClick={this.togglePlayers}>
@@ -80,55 +137,21 @@ class PlayerStats extends React.Component {
                             <span className="badge badge-secondary badge-pill playerstats-rank">
                                 Rank
                             </span>
-                            <button
-                                className="playerstats-fullname"
-                                id="lastName"
-                                onClick={this.handleSort}
-                            >
-                                Player Name
-                            </button>
-                            <button
-                                className="playerstats-season"
-                                id="season"
-                                onClick={this.handleSort}
-                            >
-                                Season
-                            </button>
-                            <button
-                                className="playerstats-stat"
-                                id="games"
-                                onClick={this.handleSort}
-                            >
-                                GP
-                            </button>
-                            <button
-                                className="playerstats-stat"
-                                id="goals"
-                                onClick={this.handleSort}
-                            >
-                                G
-                            </button>
-                            <button
-                                className="playerstats-stat"
-                                id="assists"
-                                onClick={this.handleSort}
-                            >
-                                A
-                            </button>
-                            <button
-                                className="playerstats-stat"
-                                id="points"
-                                onClick={this.handleSort}
-                            >
-                                Pts
-                            </button>
-                            <button
-                                className="playerstats-stat"
-                                id="plusMinus"
-                                onClick={this.handleSort}
-                            >
-                                +/-
-                            </button>
+                            {createPlayerListHeaderItem(
+                                'lastName',
+                                this.handleSort,
+                                'Player Name',
+                                'playerstats-fullname'
+                            )}
+                            {createPlayerListHeaderItem(
+                                'season',
+                                this.handleSort,
+                                'Season',
+                                'playerstats-season'
+                            )}
+                            {playerStatsToMap.map(ps =>
+                                createPlayerListHeaderItem(ps.id, this.handleSort, ps.text)
+                            )}
                         </li>
                     ) : (
                         <li
@@ -152,72 +175,9 @@ class PlayerStats extends React.Component {
                             >
                                 Season
                             </button>
-                            <button
-                                className="playerstats-stat"
-                                id="games"
-                                onClick={this.handleSort}
-                            >
-                                GP
-                            </button>
-                            <button
-                                className="playerstats-stat"
-                                id="gamesStarted"
-                                onClick={this.handleSort}
-                            >
-                                GS
-                            </button>
-                            <button
-                                className="playerstats-stat"
-                                id="wins"
-                                onClick={this.handleSort}
-                            >
-                                W
-                            </button>
-                            <button
-                                className="playerstats-stat"
-                                id="losses"
-                                onClick={this.handleSort}
-                            >
-                                L
-                            </button>
-                            <button className="playerstats-stat" id="ot" onClick={this.handleSort}>
-                                OTL
-                            </button>
-                            <button
-                                className="playerstats-stat"
-                                id="shotsAgainst"
-                                onClick={this.handleSort}
-                            >
-                                SA
-                            </button>
-                            <button
-                                className="playerstats-stat"
-                                id="saves"
-                                onClick={this.handleSort}
-                            >
-                                Svs
-                            </button>
-                            <button
-                                className="playerstats-stat"
-                                id="goalsAgainst"
-                                onClick={this.handleSort}
-                            >
-                                GA
-                            </button>
-                            <button
-                                className="playerstats-stat"
-                                id="savePercentage"
-                                onClick={this.handleSort}
-                            >
-                                Sv%
-                            </button>
-                            <button
-                                className="playerstats-stat"
-                                id="goalAgainstAverage"
-                                onClick={this.handleSort}
-                            >
-                                GAA
-                            </button>
+                            {goalieStatsToMap.map(gs =>
+                                createPlayerListHeaderItem(gs.id, this.handleSort, gs.text)
+                            )}
                         </li>
                     )}
                     {players.map((player, i) => {
