@@ -261,39 +261,6 @@ class PlayerStats extends React.Component {
                             </li>
                         );
                     })}
-                    <style jsx>{`
-                        .player-list {
-                            max-width: 850px;
-                            min-width: 500px;
-                        }
-
-                        .player-list button {
-                            background-color: inherit;
-                            border: none;
-                            font: inherit;
-                            color: inherit;
-                        }
-
-                        .player-list button:hover {
-                            cursor: pointer;
-                        }
-
-                        .playerstats-rank {
-                            width: 2.5rem;
-                        }
-
-                        .playerstats-fullname {
-                            width: 10rem;
-                        }
-
-                        .playerstats-season {
-                            width: 4rem;
-                        }
-
-                        .playerstats-stat {
-                            width: 2rem;
-                        }
-                    `}</style>
                 </ul>
             </div>
         );

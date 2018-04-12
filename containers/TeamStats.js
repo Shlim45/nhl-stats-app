@@ -58,28 +58,6 @@ const TeamStats = props => {
                     </li>
                 );
             })}
-            <style jsx>{`
-                .team-list {
-                    max-width: 850px;
-                    min-width: 500px;
-                }
-
-                .teamstats-rank {
-                    width: 2.5rem;
-                }
-
-                .teamstats-teamname {
-                    width: 10rem;
-                }
-
-                .teamstats-season {
-                    width: 4rem;
-                }
-
-                .teamstats-stat {
-                    width: 2rem;
-                }
-            `}</style>
         </ul>
     );
 };
