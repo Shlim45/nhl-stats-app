@@ -1,5 +1,6 @@
 import { sortPlayers } from '../handlers/lists';
 
+// TODO fix bug with traded players not showing all stats (i.e. Riley Sheahan)
 class PlayerStats extends React.Component {
     constructor(props) {
         super(props);
@@ -54,6 +55,15 @@ class PlayerStats extends React.Component {
             players = players.filter(p => p.primaryPosition.code !== 'G');
         } else {
             players = players.filter(p => p.primaryPosition.code === 'G');
+        }
+
+        // TODO figure out how to style this button
+        function createButton(id, onClick = () => {}, text = '', className = 'playerstats-stat') {
+            return (
+                <button className={className} id={id} onClick={onClick}>
+                    {text}
+                </button>
+            );
         }
 
         return (

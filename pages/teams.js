@@ -54,7 +54,7 @@ class Teams extends React.Component {
                     {this.state.teamId ? (
                         <TeamStats {...this.props} teamStats={this.props.teamStats} />
                     ) : (
-                        <TeamList {...this.props} setTeamId={this.setTeamId.bind(this)} />
+                        <TeamList {...this.props} setTeamId={this.setTeamId} />
                     )}
                 </div>
             </Layout>
