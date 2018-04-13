@@ -145,10 +145,22 @@ class PlayerStats extends React.Component {
                                 Rank
                             </span>
                             {createPlayerListHeaderItem(
+                                'jerseyNumber',
+                                this.handleSort,
+                                '#',
+                                'playerstats-stat'
+                            )}
+                            {createPlayerListHeaderItem(
                                 'lastName',
                                 this.handleSort,
                                 'Player Name',
                                 'playerstats-fullname'
+                            )}
+                            {createPlayerListHeaderItem(
+                                'primaryPosition',
+                                null,
+                                'POS',
+                                'playerstats-stat'
                             )}
                             {createPlayerListHeaderItem(
                                 'season',
@@ -168,13 +180,24 @@ class PlayerStats extends React.Component {
                             <span className="badge badge-secondary badge-pill playerstats-rank">
                                 Rank
                             </span>
-                            <button
-                                className="playerstats-fullname"
-                                id="lastName"
-                                onClick={this.handleSort}
-                            >
-                                Player Name
-                            </button>
+                            {createPlayerListHeaderItem(
+                                'jerseyNumber',
+                                this.handleSort,
+                                '#',
+                                'playerstats-stat'
+                            )}
+                            {createPlayerListHeaderItem(
+                                'lastName',
+                                this.handleSort,
+                                'Player Name',
+                                'playerstats-fullname'
+                            )}
+                            {createPlayerListHeaderItem(
+                                'primaryPosition',
+                                null,
+                                'POS',
+                                'playerstats-stat'
+                            )}
                             <button
                                 className="playerstats-season"
                                 id="season"
@@ -197,7 +220,9 @@ class PlayerStats extends React.Component {
                                 <span className="badge badge-secondary badge-pill playerstats-rank">
                                     {i + 1}
                                 </span>
+                                <span className="playerstats-stat">{player.jerseyNumber}</span>
                                 <span className="playerstats-fullname">{player.fullName}</span>
+                                <span className="playerstats-stat">{player.primaryPosition.abbreviation}</span>
                                 <span className="playerstats-season">2017-18</span>
                                 <span className="playerstats-stat">{stat.games}</span>
                                 <span className="playerstats-stat">{stat.goals}</span>
@@ -213,7 +238,9 @@ class PlayerStats extends React.Component {
                                 <span className="badge badge-secondary badge-pill playerstats-rank">
                                     {i + 1}
                                 </span>
+                                <span className="playerstats-stat">{player.jerseyNumber}</span>
                                 <span className="playerstats-fullname">{player.fullName}</span>
+                                <span className="playerstats-stat">{player.primaryPosition.abbreviation}</span>
                                 <span className="playerstats-season">2017-18</span>
                                 <span className="playerstats-stat">{stat.games}</span>
                                 <span className="playerstats-stat">{stat.gamesStarted}</span>

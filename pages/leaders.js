@@ -39,6 +39,8 @@ Leaders.getInitialProps = async function() {
             return [...acc, ...roster];
         }, []);
 
+        console.log(players[0]);
+
         // sort results by points
         const playerStats = players
             .map(p => ({
@@ -48,6 +50,7 @@ Leaders.getInitialProps = async function() {
                 firstName: p.person.firstName,
                 lastName: p.person.lastName,
                 active: p.person.active,
+                currentTeam: p.person.currentTeam,
                 primaryPosition: p.person.primaryPosition,
                 stats: p.person.stats[0].splits.filter(s => s.season === CURRENT_SEASON),
             }))

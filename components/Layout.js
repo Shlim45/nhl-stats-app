@@ -55,8 +55,7 @@ const Layout = props => (
             /* PlayerStats */
 
             .player-list {
-                max-width: 850px;
-                min-width: 500px;
+                width: 850px;
             }
             .player-list button {
                 background-color: inherit;
@@ -66,6 +65,15 @@ const Layout = props => (
             }
             .player-list button:hover {
                 cursor: pointer;
+            }
+            .player-list>li>span {
+                padding: 0 3px;
+            }
+            .player-list>li:nth-child(2n) {
+                background-color: rgba(255, 255, 255, 0.11);
+            }
+            .player-list>li>span:hover {
+                background-color: #555;
             }
             .playerstats-rank {
                 width: 2.5rem;
@@ -77,7 +85,7 @@ const Layout = props => (
                 width: 4rem;
             }
             .playerstats-stat {
-                width: 2rem;
+                width: 2.75rem;
             }
 
             /* TeamStats */
