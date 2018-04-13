@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Index = props => (
     <Layout>
-        <div>
+        <div className="wrapper">
             <h1 className="mb-5">NHL Statistics</h1>
             <h3>An unofficial source for NHL statistics.</h3>
             <ul className="menu">

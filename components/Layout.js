@@ -14,17 +14,28 @@ const Layout = props => (
 
             /* index */
 
+            .wrapper {
+                width: 60%;
+                margin: 5vh auto;
+            }
             .menu {
                 display: flex;
                 list-style: none;
                 justify-content: center;
-                margin: 5rem;
+                margin: 2rem;
+                -webkit-padding-start: 0;
             }
             .menu__item {
                 width: 30%;
                 height: 10vh;
+                margin-right: 10px;
+                display: flex;
+                align-items: center;
             }
             @media screen and (max-width: 800px) {
+                .wrapper {
+                    width: 90%;
+                }
                 .menu {
                     flex-direction: column;
                     align-items: center;
@@ -34,6 +45,8 @@ const Layout = props => (
                 .menu__item {
                     width: 80%;
                     height: 10vh;
+                    margin-right: 0;
+                    justify-content: center;
                 }
             }
 

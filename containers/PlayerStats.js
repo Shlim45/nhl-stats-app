@@ -8,7 +8,6 @@ class PlayerStats extends React.Component {
 
         const { playerStats, ...extraProps } = props;
         const players = sortPlayers(playerStats, 'points', false);
-
         this.state = {
             players,
             skaters: true,
@@ -117,10 +116,18 @@ class PlayerStats extends React.Component {
 
         let { players } = this.state;
 
+        // clear out players on roster without stats
+        players = players.filter(p => p.stats.length > 0);
+
         if (this.state.skaters) {
             players = players.filter(p => p.primaryPosition.code !== 'G');
         } else {
-            players = players.filter(p => p.primaryPosition.code === 'G');
+            players = players.filter(
+                p =>
+                    p.primaryPosition.code === 'G' &&
+                    p.stats[0].stat.games && // filter out occasions where players
+                    p.stats[0].stat.shotsAgainst // who didnt play this season show up
+            );
         }
 
         return (
