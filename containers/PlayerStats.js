@@ -1,7 +1,6 @@
 import { sortPlayers } from '../handlers/lists';
 import { createPlayerListHeader } from '../handlers';
 
-
 // TODO fix bug with traded players not showing all stats (i.e. Riley Sheahan)
 class PlayerStats extends React.Component {
     constructor(props) {

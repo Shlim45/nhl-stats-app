@@ -46,7 +46,10 @@ Players.getInitialProps = async function(props) {
 
             const players = data.teams[0].franchise.roster.roster;
 
+            console.log(players[0]);
+
             const playerStats = players.map(p => ({
+                id: p.person.id,
                 jerseyNumber: p.jerseyNumber,
                 fullName: p.person.fullName,
                 link: p.person.link,
