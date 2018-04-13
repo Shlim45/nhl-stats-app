@@ -1,5 +1,6 @@
 import { sortPlayers } from '../handlers/lists';
-import { createPlayerListHeaderItem } from '../handlers';
+import { createPlayerListHeader } from '../handlers';
+
 
 // TODO fix bug with traded players not showing all stats (i.e. Riley Sheahan)
 class PlayerStats extends React.Component {
@@ -39,71 +40,6 @@ class PlayerStats extends React.Component {
     render() {
         const { error } = this.props;
 
-        const playerStatsToMap = [
-            {
-                id: 'games',
-                text: 'GP',
-            },
-            {
-                id: 'goals',
-                text: 'G',
-            },
-            {
-                id: 'assists',
-                text: 'A',
-            },
-            {
-                id: 'points',
-                text: 'P',
-            },
-            {
-                id: 'plusMinus',
-                text: '+/-',
-            },
-        ];
-        const goalieStatsToMap = [
-            {
-                id: 'games',
-                text: 'GP',
-            },
-            {
-                id: 'gamesStarted',
-                text: 'GS',
-            },
-            {
-                id: 'wins',
-                text: 'W',
-            },
-            {
-                id: 'losses',
-                text: 'L',
-            },
-            {
-                id: 'ot',
-                text: 'OTL',
-            },
-            {
-                id: 'shotsAgainst',
-                text: 'SA',
-            },
-            {
-                id: 'saves',
-                text: 'Svs',
-            },
-            {
-                id: 'goalsAgainst',
-                text: 'GA',
-            },
-            {
-                id: 'savePercentage',
-                text: 'Sv%',
-            },
-            {
-                id: 'goalAgainstAverage',
-                text: 'GAA',
-            },
-        ];
-
         if (error) {
             return (
                 <div className="error">
@@ -136,80 +72,7 @@ class PlayerStats extends React.Component {
                     View Goalies
                 </button>
                 <ul className="player-list list-group mb-5">
-                    {this.state.skaters ? (
-                        <li
-                            key={'player-list-heading'}
-                            className="list-group-item active d-flex justify-content-between align-items-center"
-                        >
-                            <span className="badge badge-secondary badge-pill playerstats-rank">
-                                Rank
-                            </span>
-                            {createPlayerListHeaderItem(
-                                'jerseyNumber',
-                                this.handleSort,
-                                '#',
-                                'playerstats-stat'
-                            )}
-                            {createPlayerListHeaderItem(
-                                'lastName',
-                                this.handleSort,
-                                'Player Name',
-                                'playerstats-fullname'
-                            )}
-                            {createPlayerListHeaderItem(
-                                'primaryPosition',
-                                null,
-                                'POS',
-                                'playerstats-stat'
-                            )}
-                            {createPlayerListHeaderItem(
-                                'season',
-                                this.handleSort,
-                                'Season',
-                                'playerstats-season'
-                            )}
-                            {playerStatsToMap.map(ps =>
-                                createPlayerListHeaderItem(ps.id, this.handleSort, ps.text)
-                            )}
-                        </li>
-                    ) : (
-                        <li
-                            key={'player-list-heading'}
-                            className="list-group-item active d-flex justify-content-between align-items-center"
-                        >
-                            <span className="badge badge-secondary badge-pill playerstats-rank">
-                                Rank
-                            </span>
-                            {createPlayerListHeaderItem(
-                                'jerseyNumber',
-                                this.handleSort,
-                                '#',
-                                'playerstats-stat'
-                            )}
-                            {createPlayerListHeaderItem(
-                                'lastName',
-                                this.handleSort,
-                                'Player Name',
-                                'playerstats-fullname'
-                            )}
-                            {createPlayerListHeaderItem(
-                                'primaryPosition',
-                                null,
-                                'POS',
-                                'playerstats-stat'
-                            )}
-                            <button
-                                className="playerstats-season"
-                                id="season"
-                                onClick={this.handleSort}
-                            >
-                                Season
-                            </button>
-                            {goalieStatsToMap.map(gs =>
-                                createPlayerListHeaderItem(gs.id, this.handleSort, gs.text)
-                            )}
-                        </li>
-                    )}
+                    {createPlayerListHeader(this.state.skaters, this.handleSort)}
                     {players.map((player, i) => {
                         const { stat } = player.stats[0];
                         return this.state.skaters ? (
@@ -222,7 +85,9 @@ class PlayerStats extends React.Component {
                                 </span>
                                 <span className="playerstats-stat">{player.jerseyNumber}</span>
                                 <span className="playerstats-fullname">{player.fullName}</span>
-                                <span className="playerstats-stat">{player.primaryPosition.abbreviation}</span>
+                                <span className="playerstats-stat">
+                                    {player.primaryPosition.abbreviation}
+                                </span>
                                 <span className="playerstats-season">2017-18</span>
                                 <span className="playerstats-stat">{stat.games}</span>
                                 <span className="playerstats-stat">{stat.goals}</span>
@@ -240,7 +105,9 @@ class PlayerStats extends React.Component {
                                 </span>
                                 <span className="playerstats-stat">{player.jerseyNumber}</span>
                                 <span className="playerstats-fullname">{player.fullName}</span>
-                                <span className="playerstats-stat">{player.primaryPosition.abbreviation}</span>
+                                <span className="playerstats-stat">
+                                    {player.primaryPosition.abbreviation}
+                                </span>
                                 <span className="playerstats-season">2017-18</span>
                                 <span className="playerstats-stat">{stat.games}</span>
                                 <span className="playerstats-stat">{stat.gamesStarted}</span>

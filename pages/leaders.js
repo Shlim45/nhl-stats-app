@@ -39,8 +39,6 @@ Leaders.getInitialProps = async function() {
             return [...acc, ...roster];
         }, []);
 
-        console.log(players[0]);
-
         // sort results by points
         const playerStats = players
             .map(p => ({
