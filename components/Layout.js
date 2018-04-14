@@ -68,18 +68,21 @@ const Layout = props => (
             }
             .player-list>li>span {
                 padding: 0 3px;
+                transition: all 0.2s ease-out;
             }
             .player-list>li:nth-child(2n) {
                 background-color: rgba(255, 255, 255, 0.11);
             }
             .player-list>li>span:hover {
-                background-color: #555;
+                // background-color: #444;
+                color: rgba(255, 255, 255, 0.7);
             }
             .playerstats-rank {
                 width: 2.5rem;
             }
             .playerstats-fullname {
                 width: 10rem;
+                cursor: pointer;
             }
             .playerstats-season {
                 width: 4rem;

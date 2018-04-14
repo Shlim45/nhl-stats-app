@@ -37,7 +37,7 @@ class PlayerStats extends React.Component {
     };
 
     render() {
-        const { error } = this.props;
+        const { error, setPlayer } = this.props;
 
         if (error) {
             return (
@@ -83,7 +83,12 @@ class PlayerStats extends React.Component {
                                     {i + 1}
                                 </span>
                                 <span className="playerstats-stat">{player.jerseyNumber}</span>
-                                <span className="playerstats-fullname">{player.fullName}</span>
+                                <span
+                                    className="playerstats-fullname"
+                                    onClick={() => setPlayer(player)}
+                                >
+                                    {player.fullName}
+                                </span>
                                 <span className="playerstats-stat">
                                     {player.primaryPosition.abbreviation}
                                 </span>
