@@ -12,14 +12,25 @@ class Teams extends React.Component {
 
         this.state = {
             teamId: null,
+            showStandings: false,
         };
 
         this.setTeamId = this.setTeamId.bind(this);
     }
 
-    setTeamId(teamId) {
+    setTeamId = teamId => {
         this.setState({ teamId });
-    }
+    };
+
+    toggleStandings = e => {
+        const showStandings = !this.state.showStandings;
+        this.setState({ showStandings });
+        if (showStandings) {
+            e.target.textContent = "View Teams";
+        } else {
+            e.target.textContent = "View Standings";
+        }
+    };
 
     static async getInitialProps() {
         const URL = 'https://statsapi.web.nhl.com/api/v1/teams/';
@@ -51,7 +62,8 @@ class Teams extends React.Component {
             <Layout>
                 <div>
                     <h2 className="mb-5 mt-5">NHL team statistics</h2>
-                    {this.state.teamId ? (
+                    <button className="btn btn-secondary mb-5" onClick={this.toggleStandings}>View Standings</button>
+                    {this.state.showStandings ? (
                         <TeamStandings {...this.props} teamStats={this.props.teamStats} />
                     ) : (
                         <TeamList {...this.props} setTeamId={this.setTeamId} />
