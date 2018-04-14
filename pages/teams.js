@@ -1,7 +1,7 @@
 import 'isomorphic-unfetch';
 
 import Layout from '../components/Layout';
-import TeamStats from '../containers/TeamStats';
+import TeamStandings from '../components/TeamStandings';
 import TeamList from '../containers/TeamList';
 
 const CURRENT_SEASON = '20172018';
@@ -52,7 +52,7 @@ class Teams extends React.Component {
                 <div>
                     <h2 className="mb-5 mt-5">NHL team statistics</h2>
                     {this.state.teamId ? (
-                        <TeamStats {...this.props} teamStats={this.props.teamStats} />
+                        <TeamStandings {...this.props} teamStats={this.props.teamStats} />
                     ) : (
                         <TeamList {...this.props} setTeamId={this.setTeamId} />
                     )}

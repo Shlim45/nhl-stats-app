@@ -1,4 +1,4 @@
-const TeamStats = props => {
+const TeamStandings = props => {
     const teams = props.teamStats.map(ts => ts.teams[0]);
 
     const { error } = props;
@@ -62,4 +62,4 @@ const TeamStats = props => {
     );
 };
 
-export default TeamStats;
+export default TeamStandings;

@@ -9,7 +9,14 @@ const Layout = props => (
         </Head>
         <Navbar />
         <div className="container">{props.children}</div>
+        <footer className="container">
+            <p>&copy; NHL.  All information presented on this site is property of the National Hockey League.</p>
+        </footer>
         <style jsx global>{`
+            footer {
+                font-size: 0.8rem;
+                color: rgba(255, 255, 255, 0.4);
+            }
             /* PAGES*/
 
             /* index */
