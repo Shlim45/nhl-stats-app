@@ -3,6 +3,9 @@ import Link from 'next/link';
 const Team = props => {
     const { team, stats, setTeamId, ...extraProps } = props;
     const { stat } = stats.teams[0].teamStats[0].splits[0];
+    const logoURL = `https://www-league.nhlstatic.com/builds/site-core/86d4b76cc03a4d111ee0e20f9f62eb054eef3b74_1502985652/images/logos/team/current/team-${
+        team.id
+    }-dark.svg`;
     return (
         <div className="col-xs-10 col-sm-6 col-xl-3 mx-auto" style={{ maxWidth: 320 + 'px' }}>
             <div
@@ -11,11 +14,22 @@ const Team = props => {
             >
                 <div className="card-header">{team.name}</div>
                 <div className="card-body">
-                    <p className="card-text">
-                        GP: {stat.gamesPlayed} &nbsp; W: {stat.wins} &nbsp; L: {stat.losses} &nbsp;
-                        OTL: {stat.ot} &nbsp; PTS: {stat.pts}
-                    </p>
                     <div className="text-center">
+                        <img
+                            src={logoURL}
+                            alt={`${team.name} logo`}
+                            style={{
+                                backgroundColor: 'white',
+                                padding: 25 + 'px',
+                                width: 250 + 'px',
+                                height: 250 + 'px',
+                            }}
+                        />
+
+                        <p className="card-text">
+                            GP: {stat.gamesPlayed} &nbsp; W: {stat.wins} &nbsp; L: {stat.losses}{' '}
+                            &nbsp; OTL: {stat.ot} &nbsp; PTS: {stat.pts}
+                        </p>
                         <a
                             href="#"
                             onClick={() => {

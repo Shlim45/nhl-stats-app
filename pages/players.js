@@ -1,10 +1,11 @@
 import 'isomorphic-unfetch';
 
 import { Component } from 'react';
+import Link from 'next/link';
+import { filterStatsBySeason } from '../handlers/lists';
 import Layout from '../components/Layout';
 import Player from '../components/Player';
 import PlayerStats from '../containers/PlayerStats';
-import Link from 'next/link';
 
 const CURRENT_SEASON = '20172018';
 let teamId;
@@ -42,7 +43,7 @@ class Players extends Component {
                     lastName: p.person.lastName,
                     active: p.person.active,
                     primaryPosition: p.person.primaryPosition,
-                    stats: p.person.stats[0].splits.filter(s => s.season === CURRENT_SEASON),
+                    stats: filterStatsBySeason(p.person.stats[0], CURRENT_SEASON),
                 }));
 
                 return {

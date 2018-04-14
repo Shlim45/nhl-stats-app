@@ -34,3 +34,11 @@ export function sortPlayers(players, sortBy, ascend) {
         }
     }
 }
+
+export function filterStatsBySeason(stats, season) {
+    if (season) {
+        return stats.splits.filter(s => s.season === season);
+    } else {
+        return stats;
+    }
+}
