@@ -3,9 +3,11 @@ import Link from 'next/link';
 const Navbar = () => (
     <nav className="navbar navbar-expand-lg navbar-dark bg-light mb-4">
         <div className="container">
-            <a href="#" className="navbar-brand">
-                NHL Statistics
-            </a>
+            <Link href="/">
+                <a href="#" className="navbar-brand">
+                    NHL Statistics
+                </a>
+            </Link>
             <div className="collapse navbar-collapse">
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">

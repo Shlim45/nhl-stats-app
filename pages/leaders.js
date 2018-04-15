@@ -5,6 +5,10 @@ import PlayerStats from '../containers/PlayerStats';
 
 const CURRENT_SEASON = '20172018';
 
+//TODO PlayerStats requires a setPlayer function as a prop, will
+//     need to separate RosterStats and LeagueLeaders, and turn
+//     PlayerStats into a component for viewing one players stats
+
 const Leaders = props => {
     return (
         <Layout>

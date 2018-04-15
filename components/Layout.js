@@ -41,7 +41,7 @@ const Layout = props => (
             }
             @media screen and (max-width: 800px) {
                 .wrapper {
-                    width: 90%;
+                    width: 95%;
                 }
                 .menu {
                     flex-direction: column;
@@ -102,7 +102,7 @@ const Layout = props => (
 
             .team-list {
                 max-width: 850px;
-                min-width: 500px;
+                min-width: 310px;
             }
             .teamstats-rank {
                 width: 2.5rem;
