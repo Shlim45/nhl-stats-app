@@ -62,7 +62,8 @@ const Layout = props => (
             /* PlayerStats */
 
             .player-list {
-                width: 850px;
+                max-width: 850px;
+                min-width: 620px;
             }
             .player-list button {
                 background-color: inherit;
