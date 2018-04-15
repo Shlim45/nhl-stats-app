@@ -2,7 +2,7 @@ import { sortPlayers } from '../handlers/lists';
 import { createPlayerList } from '../handlers';
 
 // TODO fix bug with traded players not showing all stats (i.e. Riley Sheahan)
-class PlayerStats extends React.Component {
+class RosterStats extends React.Component {
     constructor(props) {
         super(props);
 
@@ -58,7 +58,7 @@ class PlayerStats extends React.Component {
         return (
             <div className="container">
                 <button className="btn btn-sm btn-secondary mb-5" onClick={this.togglePlayers}>
-                    View Goalies
+                    {this.state.skaters ? 'View Goalies' : 'View Skaters'}
                 </button>
                 {createPlayerList(players, this.state.skaters, this.handleSort, setPlayer)}
             </div>
@@ -66,4 +66,4 @@ class PlayerStats extends React.Component {
     }
 }
 
-export default PlayerStats;
+export default RosterStats;

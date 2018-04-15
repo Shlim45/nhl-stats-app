@@ -1,7 +1,7 @@
 import 'isomorphic-unfetch';
 
 import Layout from '../components/Layout';
-import PlayerStats from '../containers/PlayerStats';
+import RosterStats from '../components/RosterStats';
 
 const CURRENT_SEASON = '20172018';
 
@@ -15,7 +15,7 @@ const Leaders = props => {
             <div>
                 <h2 className="mb-5 mt-5">League Leaders</h2>
                 {props.playerStats ? (
-                    <PlayerStats {...props} playerStats={props.playerStats} />
+                    <RosterStats {...props} playerStats={props.playerStats} />
                 ) : null}
             </div>
         </Layout>

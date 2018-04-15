@@ -1,4 +1,4 @@
-export function sortPlayers(players, sortBy, ascend) {
+export function sortPlayers(players, sortBy, ascend=false) {
     let newSorting = [...players];
     if (ascend) {
         if (sortBy === 'lastName') {
