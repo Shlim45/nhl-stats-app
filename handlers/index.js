@@ -1,6 +1,6 @@
 import { playerStatsToMap, goalieStatsToMap } from '../scripts/playerstats';
 
-export const createPlayerListHeaderItem = (
+const createPlayerListHeaderItem = (
     id,
     onClick = () => {},
     text = '',
@@ -11,7 +11,7 @@ export const createPlayerListHeaderItem = (
     </button>
 );
 
-export const createPlayerListHeader = (skaters = true, sortFn = () => {}) =>
+const createPlayerListHeader = (skaters = true, sortFn = () => {}) =>
     skaters ? (
         <li
             key={'player-list-heading'}

@@ -1,4 +1,4 @@
-export function sortPlayers(players, sortBy, ascend=false) {
+export function sortPlayers(players, sortBy, ascend = false) {
     let newSorting = [...players];
     if (ascend) {
         if (sortBy === 'lastName') {
@@ -41,4 +41,22 @@ export function filterStatsBySeason(stats, season) {
     } else {
         return stats;
     }
+}
+
+export function paginatePlayers(playersArray, pageNumber = 0, perPage = 25) {
+    const numberOfPages = Math.ceil(playersArray.length / perPage) - 1; // 0 based pages
+
+    let pageOfPlayers;
+    if (perPage >= playersArray.length) {
+        pageOfPlayers = playersArray;
+    } else if (pageNumber >= numberOfPages) {
+        pageOfPlayers = playersArray.slice((numberOfPages) * perPage, playersArray.length);
+    } else {
+        // if ((pageNumber + 1) * perPage >= playersArray.length) {
+        //     pageOfPlayers = playersArray.slice(pageNumber * perPage, playersArray.length);
+        // } else {
+            pageOfPlayers = playersArray.slice(pageNumber * perPage, (pageNumber + 1) * perPage);
+        // }
+    }
+    return pageOfPlayers;
 }

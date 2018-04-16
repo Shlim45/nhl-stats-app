@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { filterStatsBySeason } from '../handlers/lists';
 import Layout from '../components/Layout';
 import Player from '../components/Player';
-import PlayerStats from '../containers/PlayerStats';
+import RosterStats from '../components/RosterStats';
 
 const CURRENT_SEASON = '20172018';
 let teamId;
@@ -84,7 +84,7 @@ class Players extends Component {
             <Layout>
                 <div>
                     <h2 className="mb-5 mt-5">Player Statistics</h2>
-                    <PlayerStats
+                    <RosterStats
                         {...props}
                         players={props.players}
                         playerStats={props.playerStats}

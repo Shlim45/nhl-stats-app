@@ -12,6 +12,7 @@ class Player extends React.Component {
 
     componentDidMount = async () => {
         const { player } = this.props;
+
         const URL = `https://statsapi.web.nhl.com/api/v1/people/${
             player.id
         }?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team&site=en_nhl`;
