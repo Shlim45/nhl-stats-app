@@ -2,6 +2,59 @@ import { sortPlayers, paginatePlayers } from '../handlers/lists';
 import { createPlayerList } from '../handlers';
 
 // TODO fix bug with traded players not showing all stats (i.e. Riley Sheahan)
+
+const TogglePlayers = props => {
+    const { skaters, handleClick } = props;
+    return (
+        <button className="btn btn-sm btn-secondary mb-5" onClick={handleClick}>
+            {skaters ? 'View Goalies' : 'View Skaters'}
+        </button>
+    );
+};
+
+const PageController = props => {
+    const { togglePages, currentPage } = props;
+    return (
+        <div className="page-controller">
+            <button id="firstPage" onClick={togglePages}>
+                {'<<'}
+            </button>
+            &nbsp;
+            <button id="prevPage" onClick={togglePages}>
+                {'<'}
+            </button>
+            &ensp;<span className="page-controller__current-page">{currentPage+1}</span>&ensp;
+            <button id="nextPage" onClick={togglePages}>
+                {'>'}
+            </button>
+            &nbsp;
+            <button id="lastPage" onClick={togglePages}>
+                {'>>'}
+            </button>
+            <style jsx>{`
+                .page-controller {
+                    margin: 30px auto;
+                }
+                .page-controller > button {
+                    width: 40px;
+                    border: 0;
+                    background-color: inherit;
+                    color: inherit;
+                    transition: all 0.2s ease-in-out;
+                }
+                .page-controller > button:hover {
+                    background-color: #282828;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+                .page-controller__current-page {
+                    width: 40px;
+                    color: rgba(255, 255, 255, 0.7)
+                }
+            `}</style>
+        </div>
+    );
+};
 class PlayerStatsList extends React.Component {
     constructor(props) {
         super(props);
@@ -16,7 +69,7 @@ class PlayerStatsList extends React.Component {
             asc: false,
             currentPage: 0,
             perPage: 25,
-            lastPage: Math.ceil(players.length / 25) - 1, // 0 based pages
+            totalPages: Math.ceil(players.length / 25) - 1, // 0 based pages
         };
     }
 
@@ -56,12 +109,12 @@ class PlayerStatsList extends React.Component {
                 }
                 break;
             case 'nextPage':
-                if (this.state.currentPage < this.state.lastPage) {
+                if (this.state.currentPage < this.state.totalPages) {
                     this.setState({ currentPage: this.state.currentPage + 1 });
                 }
                 break;
             case 'lastPage':
-                this.setState({ currentPage: this.state.lastPage });
+                this.setState({ currentPage: this.state.totalPages });
                 break;
             default:
         }
@@ -84,46 +137,25 @@ class PlayerStatsList extends React.Component {
 
         return (
             <div className="container">
-                <button className="btn btn-sm btn-secondary mb-5" onClick={this.togglePlayers}>
-                    {this.state.skaters ? 'View Goalies' : 'View Skaters'}
-                </button>
+                <TogglePlayers skaters={this.state.skaters} handleClick={this.togglePlayers} />
+                {this.state.totalPages > 0 && (
+                    <PageController
+                        togglePages={this.togglePages}
+                        currentPage={this.state.currentPage}
+                    />
+                )}
                 {createPlayerList(
                     paginatePlayers(players, this.state.currentPage, this.state.perPage),
                     this.state.skaters,
                     this.handleSort,
                     setPlayer
                 )}
-                <button
-                    id="firstPage"
-                    className="btn btn-sm btn-secondary"
-                    onClick={this.togglePages}
-                >
-                    {'<<'}
-                </button>
-                &nbsp;
-                <button
-                    id="prevPage"
-                    className="btn btn-sm btn-secondary"
-                    onClick={this.togglePages}
-                >
-                    {'<'}
-                </button>
-                &ensp;
-                <button
-                    id="nextPage"
-                    className="btn btn-sm btn-secondary"
-                    onClick={this.togglePages}
-                >
-                    {'>'}
-                </button>
-                &nbsp;
-                <button
-                    id="lastPage"
-                    className="btn btn-sm btn-secondary"
-                    onClick={this.togglePages}
-                >
-                    {'>>'}
-                </button>
+                {this.state.totalPages > 0 && (
+                    <PageController
+                        togglePages={this.togglePages}
+                        currentPage={this.state.currentPage}
+                    />
+                )}
             </div>
         );
     }
