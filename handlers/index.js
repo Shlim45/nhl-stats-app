@@ -47,11 +47,11 @@ export const createPlayerList = (
     setPlayer = () => {}
 ) => {
     // clear out players on roster without stats
-    let players = playersArray.filter(p => p.stats.length > 0);
+    const players = playersArray.filter(p => p.stats.length > 0);
 
-    players = skaters
-        ? players.filter(p => p.primaryPosition.code !== 'G')
-        : players.filter(p => p.primaryPosition.code === 'G' && p.stats[0].stat.shotsAgainst);
+    // players = skaters
+    //     ? players.filter(p => p.primaryPosition.code !== 'G')
+    //     : players.filter(p => p.primaryPosition.code === 'G' && p.stats[0].stat.shotsAgainst);
 
     return (
         <ul className="player-list list-group mb-5">

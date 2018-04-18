@@ -23,7 +23,7 @@ const PageController = props => {
             <button id="prevPage" onClick={togglePages}>
                 {'<'}
             </button>
-            &ensp;<span className="page-controller__current-page">{currentPage+1}</span>&ensp;
+            &ensp;<span className="page-controller__current-page">{currentPage + 1}</span>&ensp;
             <button id="nextPage" onClick={togglePages}>
                 {'>'}
             </button>
@@ -49,7 +49,7 @@ const PageController = props => {
                 }
                 .page-controller__current-page {
                     width: 40px;
-                    color: rgba(255, 255, 255, 0.7)
+                    color: rgba(255, 255, 255, 0.7);
                 }
             `}</style>
         </div>
@@ -69,6 +69,7 @@ class PlayerStatsList extends React.Component {
             asc: false,
             currentPage: 0,
             perPage: 25,
+            pages: [],
             totalPages: Math.ceil(players.length / 25) - 1, // 0 based pages
         };
     }
@@ -133,11 +134,17 @@ class PlayerStatsList extends React.Component {
             );
         }
 
-        let { players } = this.state;
-
+        let { players, skaters } = this.state;
+        players = skaters
+            ? players.filter(p => p.primaryPosition.code !== 'G')
+            : players.filter(p => p.primaryPosition.code === 'G' && p.stats[0].stat.shotsAgainst);
+        console.log(
+            'paginate:',
+            paginatePlayers(players, this.state.currentPage, this.state.perPage)
+        );
         return (
             <div className="container">
-                <TogglePlayers skaters={this.state.skaters} handleClick={this.togglePlayers} />
+                <TogglePlayers skaters={skaters} handleClick={this.togglePlayers} />
                 {this.state.totalPages > 0 && (
                     <PageController
                         togglePages={this.togglePages}
@@ -146,7 +153,7 @@ class PlayerStatsList extends React.Component {
                 )}
                 {createPlayerList(
                     paginatePlayers(players, this.state.currentPage, this.state.perPage),
-                    this.state.skaters,
+                    skaters,
                     this.handleSort,
                     setPlayer
                 )}
