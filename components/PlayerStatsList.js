@@ -61,7 +61,6 @@ class PlayerStatsList extends React.Component {
 
         const { playerStats, ...extraProps } = props;
         const players = sortPlayers(playerStats, 'points', false);
-
         this.state = {
             players,
             skaters: true,
@@ -70,19 +69,33 @@ class PlayerStatsList extends React.Component {
             currentPage: 0,
             perPage: 25,
             pages: [],
-            totalPages: Math.ceil(players.length / 25) - 1, // 0 based pages
         };
+    }
+
+    componentDidMount() {
+        let { players, skaters } = this.state;
+        players = skaters
+            ? players.filter(p => p.primaryPosition.code !== 'G')
+            : players.filter(p => p.primaryPosition.code === 'G' && p.stats[0].stat.shotsAgainst);
+        const pages = paginatePlayers(players, this.state.perPage);
+        this.setState({ pages });
     }
 
     handleSort = e => {
         const sortBy = e.target.id;
         const { players, sortedBy, asc } = this.state;
-
         // if sorting by same stat, toggle ascending
         const newAsc = sortedBy === sortBy ? !asc : false;
         const newSorting = sortPlayers(players, sortBy, newAsc);
 
-        this.setState({ players: newSorting, sortedBy: sortBy, asc: newAsc });
+        const filteredPlayers = this.state.skaters
+            ? newSorting.filter(p => p.primaryPosition.code !== 'G')
+            : newSorting.filter(
+                  p => p.primaryPosition.code === 'G' && p.stats[0].stat.shotsAgainst
+              );
+        const pages = paginatePlayers(filteredPlayers, this.state.perPage);
+
+        this.setState({ players: newSorting, sortedBy: sortBy, asc: newAsc, pages });
     };
 
     togglePlayers = e => {
@@ -90,11 +103,31 @@ class PlayerStatsList extends React.Component {
         if (!skaters) {
             const sortedBy = 'points';
             const newSorting = sortPlayers(this.state.players, sortedBy);
-            this.setState({ players: newSorting, skaters, sortedBy, asc: false });
+            const players = newSorting.filter(
+                p => p.primaryPosition.code === 'G' && p.stats[0].stat.shotsAgainst
+            );
+            const pages = paginatePlayers(players, this.state.perPage);
+            this.setState({
+                players: newSorting,
+                skaters,
+                sortedBy,
+                asc: false,
+                pages,
+                currentPage: 0,
+            });
         } else {
             const sortedBy = 'wins';
             const newSorting = sortPlayers(this.state.players, sortedBy);
-            this.setState({ players: newSorting, skaters, sortedBy, asc: false });
+            const players = newSorting.filter(p => p.primaryPosition.code !== 'G');
+            const pages = paginatePlayers(players, this.state.perPage);
+            this.setState({
+                players: newSorting,
+                skaters,
+                sortedBy,
+                asc: false,
+                pages,
+                currentPage: 0,
+            });
         }
     };
 
@@ -110,12 +143,12 @@ class PlayerStatsList extends React.Component {
                 }
                 break;
             case 'nextPage':
-                if (this.state.currentPage < this.state.totalPages) {
+                if (this.state.currentPage < this.state.pages.length - 1) {
                     this.setState({ currentPage: this.state.currentPage + 1 });
                 }
                 break;
             case 'lastPage':
-                this.setState({ currentPage: this.state.totalPages });
+                this.setState({ currentPage: this.state.pages.length - 1 });
                 break;
             default:
         }
@@ -134,30 +167,29 @@ class PlayerStatsList extends React.Component {
             );
         }
 
-        let { players, skaters } = this.state;
+        let { players } = this.state;
+        const { skaters, pages } = this.state;
         players = skaters
             ? players.filter(p => p.primaryPosition.code !== 'G')
             : players.filter(p => p.primaryPosition.code === 'G' && p.stats[0].stat.shotsAgainst);
-        console.log(
-            'paginate:',
-            paginatePlayers(players, this.state.currentPage, this.state.perPage)
-        );
+
         return (
             <div className="container">
                 <TogglePlayers skaters={skaters} handleClick={this.togglePlayers} />
-                {this.state.totalPages > 0 && (
+                {pages.length > 1 && (
                     <PageController
                         togglePages={this.togglePages}
                         currentPage={this.state.currentPage}
                     />
                 )}
-                {createPlayerList(
-                    paginatePlayers(players, this.state.currentPage, this.state.perPage),
-                    skaters,
-                    this.handleSort,
-                    setPlayer
-                )}
-                {this.state.totalPages > 0 && (
+                {pages.length > 0 &&
+                    createPlayerList(
+                        this.state.pages[this.state.currentPage],
+                        skaters,
+                        this.handleSort,
+                        setPlayer
+                    )}
+                {pages.length > 1 && (
                     <PageController
                         togglePages={this.togglePages}
                         currentPage={this.state.currentPage}
