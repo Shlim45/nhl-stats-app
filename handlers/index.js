@@ -49,10 +49,6 @@ export const createPlayerList = (
     // clear out players on roster without stats
     const players = playersArray.filter(p => p.stats.length > 0);
 
-    // players = skaters
-    //     ? players.filter(p => p.primaryPosition.code !== 'G')
-    //     : players.filter(p => p.primaryPosition.code === 'G' && p.stats[0].stat.shotsAgainst);
-
     return (
         <ul className="player-list list-group mb-5">
             {createPlayerListHeader(skaters, sortingFn)}
@@ -89,7 +85,9 @@ export const createPlayerList = (
                             {i + 1}
                         </span>
                         <span className="playerstats-stat">{player.jerseyNumber}</span>
-                        <span className="playerstats-fullname">{player.fullName}</span>
+                        <span className="playerstats-fullname" onClick={() => setPlayer(player)}>
+                            {player.fullName}
+                        </span>
                         <span className="playerstats-stat">
                             {player.primaryPosition.abbreviation}
                         </span>

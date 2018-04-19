@@ -6,10 +6,6 @@ import PlayerStatsList from '../components/PlayerStatsList';
 
 const CURRENT_SEASON = '20172018';
 
-//TODO PlayerStats requires a setPlayer function as a prop, will
-//     need to separate RosterStats and LeagueLeaders, and turn
-//     PlayerStats into a component for viewing one players stats
-
 class Leaders extends React.Component {
     constructor(props) {
         super(props);
