@@ -85,7 +85,7 @@ class PlayerStatsList extends React.Component {
         const sortBy = e.target.id;
         const { players, sortedBy, asc } = this.state;
         // if sorting by same stat, toggle ascending
-        const newAsc = sortedBy === sortBy ? !asc : false;
+        const newAsc = sortedBy === sortBy ? !asc : sortBy === 'lastName' ? true : false;
         const newSorting = sortPlayers(players, sortBy, newAsc);
 
         const filteredPlayers = this.state.skaters
