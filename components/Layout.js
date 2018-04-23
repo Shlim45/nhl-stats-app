@@ -6,6 +6,7 @@ const Layout = props => (
         <Head>
             <title>NHL Statistics</title>
             <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css" />
+            <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700" rel="stylesheet" />
         </Head>
         <Navbar />
         <div className="container">{props.children}</div>

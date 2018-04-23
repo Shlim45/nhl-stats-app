@@ -108,3 +108,39 @@ export const createPlayerList = (
         </ul>
     );
 };
+
+export const teamLogo = (teamId, margin, width, height = width) => {
+    const logoURL = `https://www-league.nhlstatic.com/builds/site-core/86d4b76cc03a4d111ee0e20f9f62eb054eef3b74_1502985652/images/logos/team/current/team-${teamId}-dark.svg`;
+    return (
+        <img
+            className="team-logo"
+            src={logoURL}
+            alt={'team logo'}
+            style={{
+                backgroundColor: 'white',
+                margin: margin + 'px',
+                width: width + 'px',
+                height: height + 'px',
+            }}
+        />
+    );
+};
+
+export const playerPhoto = player => (
+    <div className="player-stats__info--headshot">
+        <img
+            src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.id}.png`}
+            alt={player.fullName}
+            className="player-stats__info--headshot"
+        />
+        <style jsx>{`
+            .player-stats__info--headshot {
+                border-radius: 50%;
+                height: 150px;
+                width: 150px;
+                background-color: white;
+                box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.4);
+            }
+        `}</style>
+    </div>
+);

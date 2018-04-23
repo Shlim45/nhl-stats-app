@@ -2,6 +2,7 @@ import 'isomorphic-unfetch';
 
 import { Component } from 'react';
 import Link from 'next/link';
+import { teamLogo } from '../handlers';
 import { filterStatsBySeason } from '../handlers/lists';
 import Layout from '../components/Layout';
 import Player from '../components/Player';
@@ -84,6 +85,7 @@ class Players extends Component {
             <Layout>
                 <div>
                     <h2 className="mb-5 mt-5">Player Statistics</h2>
+                    {teamId ? teamLogo(teamId, 50, 200) : null}
                     <PlayerStatsList
                         {...props}
                         players={props.players}

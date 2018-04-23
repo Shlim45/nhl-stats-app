@@ -1,5 +1,7 @@
 import 'isomorphic-unfetch';
 
+import { teamLogo, playerPhoto } from '../handlers';
+
 class Player extends React.Component {
     constructor(props) {
         super(props);
@@ -44,35 +46,43 @@ class Player extends React.Component {
                 <hr />
 
                 <div className="player-stats__info">
-                    <img
-                        src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${
-                            player.id
-                        }.png`}
-                        alt={player.fullName}
-                        className="player-stats__info--headshot"
-                    />
+                    <div className="player-stats__info--hero">
+                        {/* <img
+                            src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${
+                                player.id
+                            }.png`}
+                            alt={player.fullName}
+                            className="player-stats__info--headshot"
+                        /> */}
+                        {playerPhoto(player, 'player-stats__info--headshot')}
+                        <p>
+                            #{player.jerseyNumber} {player.fullName}
+                        </p>
+                        {playerExpanded && teamLogo(playerExpanded.currentTeam.id, 5, 50)}
+                    </div>
                     {playerExpanded && (
                         <div className="player-stats__info--info">
-                            <p>
-                                {player.jerseyNumber} - {player.fullName}
-                            </p>
                             <p>Position: {player.primaryPosition.name}</p>
                             <p>Age: {playerExpanded.currentAge}</p>
                             <p>DOB: {playerExpanded.birthDate}</p>
                             <p>
                                 Birthplace:{' '}
                                 {playerExpanded.birthCity +
-                                    ', ' +
-                                    playerExpanded.birthStateProvince}
+                                    (playerExpanded.birthStateProvince
+                                        ? ', ' + playerExpanded.birthStateProvince
+                                        : '') +
+                                    (', ' + playerExpanded.birthCountry)}
                             </p>
-                            <p>Nationality: {playerExpanded.birthCountry}</p>
                             <p>Height: {playerExpanded.height}</p>
                             <p>Weight: {playerExpanded.weight} lbs.</p>
-                            <p>Shoots/Catches: {playerExpanded.shootsCatches}</p>
+                            <p>
+                                {player.primaryPosition.type === 'Goalie' ? 'Catches' : 'Shoots'}:{' '}
+                                {playerExpanded.shootsCatches}
+                            </p>
                         </div>
                     )}
                 </div>
-
+                {/* temporarily dump all stats onto page */}
                 <section className="player-stats__stats">
                     <div className="player-stats__season-stats">
                         <h2>Season Stats</h2>
@@ -93,23 +103,39 @@ class Player extends React.Component {
 
                 <style jsx>{`
                     .player-stats {
+                        font-family: 'Fira Sans', sans-serif;
                         width: 90%;
                         display: flex;
                         flex-direction: column;
                         margin: 10px auto;
                     }
                     .player-stats__info {
-                        height: 200px;
+                        height: 300px;
                         display: flex;
+                        flex-direction: column;
                         justify-content: space-evenly;
+                        border: 1px solid grey;
                     }
-                    .player-stats__info--headshot {
-                        border-radius: 50%;
-                        border: 1px solid #222;
-                        height: 150px;
-                        width: 150px;
+                    // .player-stats__info--headshot {
+                    //     border-radius: 50%;
+                    //     border: 1px solid #222;
+                    //     height: 150px;
+                    //     width: 150px;
+                    // }
+                    .player-stats__info--hero {
+                        margin-top: -100px;
+                        text-align: center;
+                        font-size: 1.4rem;
+                        font-weight: bold;
+                        flex: 1;
+                        align-self: center;
                     }
+                    // .player-stats__info--hero > img {
+                    //     background-color: white;
+                    //     box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.4);
+                    // }
                     .player-stats__info--info {
+                        flex: 1;
                         display: flex;
                         flex-direction: column;
                         flex-wrap: wrap;
@@ -136,7 +162,5 @@ class Player extends React.Component {
         );
     }
 }
-
-// https://statsapi.web.nhl.com/api/v1/people/${player.id}?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team&site=en_nhl
 
 export default Player;
