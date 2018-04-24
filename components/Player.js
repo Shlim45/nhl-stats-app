@@ -47,13 +47,6 @@ class Player extends React.Component {
 
                 <div className="player-stats__info">
                     <div className="player-stats__info--hero">
-                        {/* <img
-                            src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${
-                                player.id
-                            }.png`}
-                            alt={player.fullName}
-                            className="player-stats__info--headshot"
-                        /> */}
                         {playerPhoto(player, 'player-stats__info--headshot')}
                         <p>
                             #{player.jerseyNumber} {player.fullName}
@@ -84,18 +77,28 @@ class Player extends React.Component {
                 </div>
                 {/* temporarily dump all stats onto page */}
                 <section className="player-stats__stats">
-                    <div className="player-stats__season-stats">
+                    <div className="player-stats__stats-list player-stats__season-stats">
                         <h2>Season Stats</h2>
                         {Object.getOwnPropertyNames(stat).map(val => (
-                            <p key={val}>{val + ' -> ' + stat[val]}</p>
+                                <div className="player-stats__stats--stat-line" key={val}>
+                                    <span className="player-stats__stats--stat-name">{val}</span>
+                                    <span className="player-stats__stats--stat-value">
+                                        {stat[val]}
+                                    </span>
+                                </div>
                         ))}
                     </div>
 
                     {playerExpanded && (
-                        <div className="player-stats__career-stats">
+                        <div className="player-stats__stats-list player-stats__career-stats">
                             <h2>Career Stats</h2>
                             {Object.getOwnPropertyNames(careerStats).map(val => (
-                                <p key={val}>{val + ' -> ' + careerStats[val]}</p>
+                                <div className="player-stats__stats--stat-line" key={val}>
+                                    <span className="player-stats__stats--stat-name">{val}</span>
+                                    <span className="player-stats__stats--stat-value">
+                                        {careerStats[val]}
+                                    </span>
+                                </div>
                             ))}
                         </div>
                     )}
@@ -104,17 +107,19 @@ class Player extends React.Component {
                 <style jsx>{`
                     .player-stats {
                         font-family: 'Fira Sans', sans-serif;
-                        width: 90%;
+                        width: 60vw;
+                        min-width: 500px;
                         display: flex;
                         flex-direction: column;
                         margin: 10px auto;
                     }
                     .player-stats__info {
-                        height: 300px;
+                        height: 320px;
                         display: flex;
                         flex-direction: column;
                         justify-content: space-evenly;
-                        border: 1px solid grey;
+                        padding: 40px 0;
+                        border-bottom: 4px solid grey;
                     }
                     // .player-stats__info--headshot {
                     //     border-radius: 50%;
@@ -152,10 +157,29 @@ class Player extends React.Component {
                         display: flex;
                         justify-content: space-around;
                     }
+                    .player-stats__stats-list {
+                        width: 300px;
+                    }
+                    .player-stats__stats--stat-line {
+                        display: flex;
+                        justify-content: space-between;
+                        padding-bottom: 10px;
+                    }
+                    .player-stats__stats--stat-line:hover {
+                        background-color: rgba(0, 0, 0, 0.05);
+                    }
+                    .player-stats__stats--stat-name {
+                        font-style: italic;
+                    }
+                    .player-stats__stats--stat-value {
+                        text-align: right;
+                    }
                     .player-stats__stats h2 {
                         padding-bottom: 15px;
                         border-bottom: 3px solid #aaa;
+                        text-align: center;
                         width: 60%;
+                        margin: 25px auto;
                     }
                 `}</style>
             </section>

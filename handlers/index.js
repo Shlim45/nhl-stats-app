@@ -140,6 +140,7 @@ export const playerPhoto = player => (
                 width: 150px;
                 background-color: white;
                 box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.4);
+                margin: 0 auto;
             }
         `}</style>
     </div>
