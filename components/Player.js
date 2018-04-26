@@ -1,6 +1,7 @@
 import 'isomorphic-unfetch';
 
 import { teamLogo, playerPhoto } from '../handlers';
+import { singlePlayerStatsTable } from '../handlers/lists';
 
 class Player extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class Player extends React.Component {
   render() {
     const { player, playerExpanded } = this.state;
     const { clearPlayer } = this.props;
-    const { stat } = player.stats[0];
+    // const { stat } = player.stats[0];
     const careerStats = playerExpanded ? playerExpanded.stats[1].splits[0].stat : null;
 
     return (
@@ -73,19 +74,20 @@ class Player extends React.Component {
             </div>
           )}
         </div>
-        {/* temporarily dump all stats onto page */}
+
         <section className="player-stats__stats">
           <div className="player-stats__stats-list player-stats__season-stats">
-            <h2>Season Stats</h2>
-            {Object.getOwnPropertyNames(stat).map(val => (
+            <h2>Player Statistics</h2>
+            {singlePlayerStatsTable(player, playerExpanded)}
+            {/* {Object.getOwnPropertyNames(stat).map(val => (
               <div className="player-stats__stats--stat-line" key={val}>
                 <span className="player-stats__stats--stat-name">{val}</span>
                 <span className="player-stats__stats--stat-value">{stat[val]}</span>
               </div>
-            ))}
+            ))} */}
           </div>
 
-          {playerExpanded && (
+          {/* playerExpanded && (
             <div className="player-stats__stats-list player-stats__career-stats">
               <h2>Career Stats</h2>
               {Object.getOwnPropertyNames(careerStats).map(val => (
@@ -95,7 +97,7 @@ class Player extends React.Component {
                 </div>
               ))}
             </div>
-          )}
+          ) */}
         </section>
 
         <style jsx>{`
@@ -150,9 +152,11 @@ class Player extends React.Component {
           .player-stats__stats {
             display: flex;
             justify-content: space-around;
+            flex-direction: column;
+            margin: 0 auto;
           }
           .player-stats__stats-list {
-            width: 300px;
+            width: 60vw;
           }
           .player-stats__stats--stat-line {
             display: flex;

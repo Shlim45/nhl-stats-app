@@ -74,6 +74,14 @@ class Players extends Component {
   render() {
     const { props } = this;
     const { player } = this.state;
+    const testPlayer = player ? props.players.find(p => p.person.id === player.id) : null;
+
+    console.log({ testPlayer });
+    // eslint-disable-next-line no-use-before-define
+    const window = window || null;
+    if (window) {
+      window.scrollY = 0;
+    }
 
     return player ? (
       <Player player={player} clearPlayer={this.clearPlayer} />
@@ -85,6 +93,7 @@ class Players extends Component {
           <PlayerStatsList
             {...props}
             players={props.players}
+            // player={props.player}
             playerStats={props.playerStats}
             setPlayer={this.setPlayer}
           />

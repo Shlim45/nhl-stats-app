@@ -61,6 +61,8 @@ class PlayerStatsList extends React.Component {
 
     const { playerStats, ...extraProps } = props;
     const players = sortPlayers(playerStats, 'points', false);
+    const players2 = props.players; // testing
+
     this.state = {
       players,
       skaters: true,
@@ -73,11 +75,13 @@ class PlayerStatsList extends React.Component {
   }
 
   componentDidMount() {
-    let { players, skaters } = this.state;
+    const { skaters } = this.state;
+    let { players } = this.state;
     players = skaters
       ? players.filter(p => p.primaryPosition.code !== 'G')
       : players.filter(p => p.primaryPosition.code === 'G' && p.stats[0].stat.shotsAgainst);
     const pages = paginatePlayers(players, this.state.perPage);
+    // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({ pages });
   }
 
@@ -96,7 +100,7 @@ class PlayerStatsList extends React.Component {
     this.setState({ players: newSorting, sortedBy: sortBy, asc: newAsc, pages });
   };
 
-  togglePlayers = e => {
+  togglePlayers = () => {
     const skaters = !this.state.skaters;
     if (!skaters) {
       const sortedBy = 'points';
@@ -163,11 +167,11 @@ class PlayerStatsList extends React.Component {
       );
     }
 
-    let { players } = this.state;
+    // let { players } = this.state;
     const { skaters, pages } = this.state;
-    players = skaters
-      ? players.filter(p => p.primaryPosition.code !== 'G')
-      : players.filter(p => p.primaryPosition.code === 'G' && p.stats[0].stat.shotsAgainst);
+    // players = skaters
+    //   ? players.filter(p => p.primaryPosition.code !== 'G')
+    //   : players.filter(p => p.primaryPosition.code === 'G' && p.stats[0].stat.shotsAgainst);
 
     return (
       <div className="container">
