@@ -31,7 +31,6 @@ class Player extends React.Component {
   render() {
     const { player, playerExpanded } = this.state;
     const { clearPlayer } = this.props;
-    // const { stat } = player.stats[0];
     const careerStats = playerExpanded ? playerExpanded.stats[1].splits[0].stat : null;
 
     return (
@@ -52,7 +51,7 @@ class Player extends React.Component {
             <p>
               #{player.jerseyNumber} {player.fullName}
             </p>
-            {playerExpanded && teamLogo(playerExpanded.currentTeam.id, 5, 50)}
+            {playerExpanded && teamLogo(playerExpanded.currentTeam.id, '5px', '50px')}
           </div>
           {playerExpanded && (
             <div className="player-stats__info--info">
@@ -79,25 +78,7 @@ class Player extends React.Component {
           <div className="player-stats__stats-list player-stats__season-stats">
             <h2>Player Statistics</h2>
             {singlePlayerStatsTable(player, playerExpanded)}
-            {/* {Object.getOwnPropertyNames(stat).map(val => (
-              <div className="player-stats__stats--stat-line" key={val}>
-                <span className="player-stats__stats--stat-name">{val}</span>
-                <span className="player-stats__stats--stat-value">{stat[val]}</span>
-              </div>
-            ))} */}
           </div>
-
-          {/* playerExpanded && (
-            <div className="player-stats__stats-list player-stats__career-stats">
-              <h2>Career Stats</h2>
-              {Object.getOwnPropertyNames(careerStats).map(val => (
-                <div className="player-stats__stats--stat-line" key={val}>
-                  <span className="player-stats__stats--stat-name">{val}</span>
-                  <span className="player-stats__stats--stat-value">{careerStats[val]}</span>
-                </div>
-              ))}
-            </div>
-          ) */}
         </section>
 
         <style jsx>{`
@@ -117,12 +98,6 @@ class Player extends React.Component {
             padding: 40px 0;
             border-bottom: 4px solid grey;
           }
-          // .player-stats__info--headshot {
-          //     border-radius: 50%;
-          //     border: 1px solid #222;
-          //     height: 150px;
-          //     width: 150px;
-          // }
           .player-stats__info--hero {
             margin-top: -100px;
             text-align: center;
@@ -131,10 +106,6 @@ class Player extends React.Component {
             flex: 1;
             align-self: center;
           }
-          // .player-stats__info--hero > img {
-          //     background-color: white;
-          //     box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.4);
-          // }
           .player-stats__info--info {
             flex: 1;
             display: flex;

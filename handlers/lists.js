@@ -1,3 +1,5 @@
+/* SORTING FUNCTIONS */
+
 export function sortPlayers(players, sortBy, ascend = false) {
   let newSorting = [...players];
   newSorting = newSorting.filter(p => p.stats.length > 0); // remove players with no stats
@@ -13,12 +15,42 @@ export function sortPlayers(players, sortBy, ascend = false) {
     : newSorting.sort((a, b) => b.stats[0].stat[sortBy] - a.stats[0].stat[sortBy]);
 }
 
+/* FILTERING FUNCTIONS */
+
 export function filterStatsBySeason(stats, season) {
   if (season) {
     return stats.splits.filter(s => s.season === season);
   }
   return stats;
 }
+
+export function filterTeamsByConference(teams, conferenceName) {
+  switch (conferenceName.toLowerCase()) {
+    case 'western':
+      return teams.filter(team => team.conference.id === 5);
+    case 'eastern':
+      return teams.filter(team => team.conference.id === 6);
+    default:
+      return teams;
+  }
+}
+
+export function filterTeamsByDivision(teams, divisionName) {
+  switch (divisionName.toLowerCase()) {
+    case 'pacific':
+      return teams.filter(team => team.division.id === 15);
+    case 'central':
+      return teams.filter(team => team.division.id === 16);
+    case 'atlantic':
+      return teams.filter(team => team.division.id === 17);
+    case 'metropolitan':
+      return teams.filter(team => team.division.id === 18);
+    default:
+      return teams;
+  }
+}
+
+/* PAGINATION */
 
 export function paginatePlayers(playersArray, perPage = 25) {
   const pagesArray = [];
@@ -113,14 +145,14 @@ const singlePlayerStatsTableHeading = skater =>
  * @param {boolean} seasonOnly season stats or career stats
  * @param {boolean} playoffs playoffs or regular season stats
  */
-const singlePlayerStatsTableRow = (stats, isSkater, seasonOnly, playoffs = false) => {
+const singlePlayerStatsTableRow = (stats, isSkater, seasonOnly, playoffs = false) =>
   // const { stat } = seasonOnly ? player.stats[0] : player.stats[1];
   // const isSkater = player.primaryPosition.code !== 'G';
 
   // console.log({ player, stat });
-  console.log({ stats });
+  // console.log({ stats });
 
-  return isSkater ? (
+  isSkater ? (
     <tr data-index="2">
       <td data-col="0" data-row="2">
         <span>{seasonOnly ? '2017-2018' : 'Career Stats'}</span>
@@ -184,7 +216,6 @@ const singlePlayerStatsTableRow = (stats, isSkater, seasonOnly, playoffs = false
       `}</style>
     </tr>
   ) : null;
-};
 
 export const singlePlayerStatsTable = (player, playerExpanded) => {
   // kludgy bandaid until i bring in the full player object

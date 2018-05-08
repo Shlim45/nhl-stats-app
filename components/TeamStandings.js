@@ -1,3 +1,5 @@
+import { filterTeamsByConference, filterTeamsByDivision } from '../handlers/lists';
+
 const TeamStandings = props => {
   const teams = props.teamStats.map(ts => ts.teams[0]);
 
@@ -17,17 +19,14 @@ const TeamStandings = props => {
   teams.sort((a, b) => b.teamStats[0].splits[0].stat.pts - a.teamStats[0].splits[0].stat.pts);
 
   // Conferences
-  const westernConference = teams.filter(team => team.conference.id === 5);
-  const easternConference = teams.filter(team => team.conference.id === 6);
+  const westernConference = filterTeamsByConference(teams, 'western');
+  const easternConference = filterTeamsByConference(teams, 'eastern');
 
   // Divisions
-  const pacificDivision = westernConference.filter(team => team.division.id === 15);
-  const centralDivision = westernConference.filter(team => team.division.id === 16);
-  const atlanticDivision = easternConference.filter(team => team.division.id === 17);
-  const metropolitanDivision = easternConference.filter(team => team.division.id === 18);
-
-  console.log({ pacificDivision, centralDivision });
-  console.log({ atlanticDivision, metropolitanDivision });
+  const pacificDivision = filterTeamsByDivision(teams, 'pacific');
+  const centralDivision = filterTeamsByDivision(teams, 'central');
+  const atlanticDivision = filterTeamsByDivision(teams, 'atlantic');
+  const metropolitanDivision = filterTeamsByDivision(teams, 'metropolitan');
 
   // TODO: formatting
 

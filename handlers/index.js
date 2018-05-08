@@ -1,5 +1,51 @@
 import { playerStatsToMap, goalieStatsToMap } from '../scripts/playerstats';
 
+/**
+ * Returns an HTML img element of the team's logo with a className of "team-logo".
+ *
+ * @param {number} teamId ID number of team (can also be a string)
+ * @param {string} margin Element's margin (ex. 25px, 3rem, etc.)
+ * @param {string} width Elements width
+ * @param {string} height Elements height (default: same as width)
+ */
+export const teamLogo = (teamId, margin, width, height = width) => {
+  const logoURL = `https://www-league.nhlstatic.com/builds/site-core/86d4b76cc03a4d111ee0e20f9f62eb054eef3b74_1502985652/images/logos/team/current/team-${teamId}-dark.svg`;
+  return (
+    <img
+      className="team-logo"
+      src={logoURL}
+      alt="team logo"
+      style={{
+        backgroundColor: 'white',
+        padding: '5px',
+        margin,
+        width,
+        height,
+      }}
+    />
+  );
+};
+
+export const playerPhoto = player => (
+  <div className="player-stats__info--headshot">
+    <img
+      src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.id}.png`}
+      alt={player.fullName}
+      className="player-stats__info--headshot"
+    />
+    <style jsx>{`
+      .player-stats__info--headshot {
+        border-radius: 50%;
+        height: 150px;
+        width: 150px;
+        background-color: white;
+        box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.4);
+        margin: 0 auto;
+      }
+    `}</style>
+  </div>
+);
+
 const createPlayerListHeaderItem = (id, onClick = () => {}, text = '', className = 'playerstats-stat') => (
   <button key={id} className={className} id={id} onClick={onClick}>
     {text}
@@ -10,6 +56,7 @@ const createPlayerListHeader = (skaters = true, sortFn = () => {}) =>
   skaters ? (
     <li key="player-list-heading" className="list-group-item active d-flex justify-content-between align-items-center">
       <span className="badge badge-secondary badge-pill playerstats-rank">Rank</span>
+      <span className="playerstats__team-logo">Team</span>
       {createPlayerListHeaderItem('jerseyNumber', sortFn, '#', 'playerstats-stat')}
       {createPlayerListHeaderItem('lastName', sortFn, 'Player Name', 'playerstats-fullname')}
       {createPlayerListHeaderItem('primaryPosition', null, 'POS', 'playerstats-stat')}
@@ -19,6 +66,7 @@ const createPlayerListHeader = (skaters = true, sortFn = () => {}) =>
   ) : (
     <li key="player-list-heading" className="list-group-item active d-flex justify-content-between align-items-center">
       <span className="badge badge-secondary badge-pill playerstats-rank">Rank</span>
+      <span className="playerstats__team-logo">Team</span>
       {createPlayerListHeaderItem('jerseyNumber', sortFn, '#', 'playerstats-stat')}
       {createPlayerListHeaderItem('lastName', sortFn, 'Player Name', 'playerstats-fullname')}
       {createPlayerListHeaderItem('primaryPosition', null, 'POS', 'playerstats-stat')}
@@ -38,9 +86,11 @@ export const createPlayerList = (playersArray, skaters = true, sortingFn = () =>
       {createPlayerListHeader(skaters, sortingFn)}
       {players.map((player, i) => {
         const { stat } = player.stats[0];
+        console.log({ player });
         return skaters ? (
           <li key={player.fullName} className="list-group-item d-flex justify-content-between align-items-center">
             <span className="badge badge-secondary badge-pill playerstats-rank">{i + 1}</span>
+            <span className="playerstats__team-logo">{teamLogo()}</span>
             <span className="playerstats-stat">{player.jerseyNumber}</span>
             <span className="playerstats-fullname" onClick={() => setPlayer(player)}>
               {player.fullName}
@@ -78,40 +128,3 @@ export const createPlayerList = (playersArray, skaters = true, sortingFn = () =>
     </ul>
   );
 };
-
-export const teamLogo = (teamId, margin, width, height = width) => {
-  const logoURL = `https://www-league.nhlstatic.com/builds/site-core/86d4b76cc03a4d111ee0e20f9f62eb054eef3b74_1502985652/images/logos/team/current/team-${teamId}-dark.svg`;
-  return (
-    <img
-      className="team-logo"
-      src={logoURL}
-      alt="team logo"
-      style={{
-        backgroundColor: 'white',
-        margin: `${margin}px`,
-        width: `${width}px`,
-        height: `${height}px`,
-      }}
-    />
-  );
-};
-
-export const playerPhoto = player => (
-  <div className="player-stats__info--headshot">
-    <img
-      src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.id}.png`}
-      alt={player.fullName}
-      className="player-stats__info--headshot"
-    />
-    <style jsx>{`
-      .player-stats__info--headshot {
-        border-radius: 50%;
-        height: 150px;
-        width: 150px;
-        background-color: white;
-        box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.4);
-        margin: 0 auto;
-      }
-    `}</style>
-  </div>
-);
